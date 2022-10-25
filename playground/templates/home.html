@@ -1,0 +1,28 @@
+<!doctype html>
+{% if logg %}
+<head><title>Omskriv text</title> 
+    <meta charset=utf-8> </head>
+    <body>
+        <h1>Skriv in texten som ska omskrivas</h1>
+		<form>
+			<input type="text" name="query">
+		</form>	
+    </body>
+{% else %}
+<head><title>Omskriv text</title> 
+    <meta charset=utf-8> </head>
+    <body>
+        <h1>Vänligen skriv ditt namn</h1>
+		<form>
+			<input type="Namn" name="name">
+            <button type="button" onclick="loggatIn()">Kopiera!</button>
+		</form>	
+
+        <script>
+            function loggatIn() { 
+                window.location.href = "/rewrite/loggingIn/"
+            }
+        </script>
+
+    </body>
+{% endif %}
