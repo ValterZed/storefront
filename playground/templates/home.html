@@ -1,28 +1,23 @@
 <!doctype html>
-{% if logg %}
-<head><title>Omskriv text</title> 
-    <meta charset=utf-8> </head>
+
+<head>
+    <title>Omskriv text</title> 
+    <meta charset=utf-8> 
+    
+</head>
+    <link rel="stylesheet" href="\static\rewrite\home.css">
     <body>
         <h1>Skriv in texten som ska omskrivas</h1>
-		<form>
+		<form method="post">
 			<input type="text" name="query">
+            <button type="button" onclick="skickatIn()">Kopiera!</button>
 		</form>	
-    </body>
-{% else %}
-<head><title>Omskriv text</title> 
-    <meta charset=utf-8> </head>
-    <body>
-        <h1>Vänligen skriv ditt namn</h1>
-		<form>
-			<input type="Namn" name="name">
-            <button type="button" onclick="loggatIn()">Kopiera!</button>
-		</form>	
-
-        <script>
-            function loggatIn() { 
-                window.location.href = "/rewrite/loggingIn/"
-            }
-        </script>
+    <script>
+        function skickatIn() {
+            window.location.href = "/rewrite/gen/"
+        }
+    </script>
+        
 
     </body>
-{% endif %}
+
