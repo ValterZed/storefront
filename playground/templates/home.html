@@ -3,14 +3,16 @@
 <head>
     <title>Omskriv text</title> 
     <meta charset=utf-8> 
-    
-</head>
     <link rel="stylesheet" href="\static\rewrite\home.css">
+</head>
+    
     <body>
         <h1>Skriv in texten som ska omskrivas</h1>
 		<form method="post">
+            <button type="submit" id="submBtn" onclick="skickatIn()">Kopiera!</button>
 			<input type="text" name="query">
-            <button type="button" onclick="skickatIn()">Kopiera!</button>
+            
+            
 		</form>	
     <script>
         function skickatIn() {

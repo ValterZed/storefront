@@ -8,5 +8,6 @@ from django.conf import settings
 urlpatterns = [
     path("", views.render_home),
     path("loggingIn/", views.logged_in),
-    path("gen/", views.generate)
+    path("gen/", views.generate),
+    path("disp/", views.display_generated)
 ]

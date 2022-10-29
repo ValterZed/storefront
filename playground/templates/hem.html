@@ -1,0 +1,19 @@
+<head>
+    <title>Omskriv text</title> 
+    <meta charset=utf-8> 
+    <link rel="stylesheet" href="\static\rewrite\home.css">
+</head>
+<div id="home">
+    <h1>Skriv in texten som ska omskrivas</h1>
+    <div id="formGenerate">
+		<form method="post">
+			<input type="text" name="query">
+            <button type="button" onclick="skickatIn()">Kopiera!</button>
+		</form>	
+    </div>
+    <script>
+        function skickatIn() {
+            window.location.href = "/rewrite/gen/"
+        }
+    </script>
+</div>
