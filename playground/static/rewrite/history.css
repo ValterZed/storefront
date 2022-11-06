@@ -5,23 +5,55 @@ body {
 .historydivs {
     display: grid;
     grid-template-columns: 50% 50%;
-    column-gap: 5%;
-    row-gap: 1em;
+    column-gap: 2em;
+    row-gap: .5em;
 }
 
 .input {
     text-align: right;
-    background-color: #404456;
+    background-color: #454961;
+    padding: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    border: 20px;
+    border-radius: 10px;
 }
 
-.input:nth-child(odd){
-    background-color: rgba(211, 211, 149, 0.199);
+.input:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #404456;
+    border-radius: 20px;
 }
 
 .output {
-    background-color: #404456;
+    background-color: #353951;
+    padding: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    border: 20px;
+    border-radius: 10px;
 }
 
-.input:nth-child(even) {
-    background-color: #313544;
+.output:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #404456;
+    border-radius: 20px;
+}
+
+button{
+    text-align: center;
+    background-color: #505466;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    transition-duration: 0.4s;
+
+}
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #303446;
+    border-radius: 20px;
 }

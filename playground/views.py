@@ -1,6 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from django.template import RequestContext
 import json
 import os
 from django import forms
@@ -69,7 +68,21 @@ def render_home(request):
     
 
     if request.POST.get('query') != None:
-        query = request.POST.get('query')
+        global q
+        q = request.POST.get('query')
+        return redirect("/rewrite/gen/")
+
+
+
+    with open(r"playground\data\users.json", "w+") as json_file:
+        json_file.write(json.dumps(users))
+
+    return render(request,"home.html", {"LoggedInWithName": loggedInWithName})
+
+def generating(request):
+
+        ip = get_client_ip(request)
+        query = q
         gen_text = generate(query)
 
         with open(f"playground\data\{ip}_history.json", "r+") as json_file:
@@ -77,15 +90,13 @@ def render_home(request):
             with open(f"playground\data\{ip}_history.json", "w+") as json_file:
                 dict[query] = gen_text
                 json_file.write(json.dumps(dict))
-    
+        
 
         return render(request, "display_generated.html", {"generated_text": gen_text})
 
+def generating_fake(request):
+    return render(request, "redirect_gen.html")
 
-    with open(r"playground\data\users.json", "w+") as json_file:
-        json_file.write(json.dumps(users))
-
-    return render(request,"hem.html", {"LoggedInWithName": loggedInWithName})
 
 def logged_in(request):
     ip = get_client_ip(request)
@@ -103,6 +114,19 @@ def logged_in(request):
     
     return render(request, "redirect.html", {"link": "/f/"})
 
-def display_generated(request):
-    return HttpResponse(request.POST.get("query"))
+def display_history(request):
+    ip = get_client_ip(request)
+    input_lst = [""for _ in range(10)]
+    value_lst = [""for _ in range(10)]
+    with open(f"playground\data\{ip}_history.json", "r+") as json_file:
+        dict = json.loads(json_file.read())
+    
+    for n, item in enumerate(reversed(dict.keys())):
+        if n >= 10:
+            break
+        input_lst[n] = item
+        value_lst[n] = dict[item]
 
+    return render(request, "display_history.html", {"i0": input_lst[0], "i1":input_lst[1], "i2":input_lst[2], "i3":input_lst[3], "i4":input_lst[4], "i5":input_lst[5], "i6":input_lst[6], "i7":input_lst[7], "i8":input_lst[8], "i9":input_lst[9],
+    "o0": value_lst[0], "o1": value_lst[1], "o2": value_lst[2], "o3": value_lst[3], "o4": value_lst[4], "o5":value_lst[5], "o6":value_lst[6], "o7":value_lst[7], "o8":value_lst[8], "o9":value_lst[9]
+    })
