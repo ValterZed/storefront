@@ -4,22 +4,32 @@
     <title>Omskriv text</title> 
     <meta charset=utf-8> 
     <link rel="stylesheet" href="\static\rewrite\home.css">
-</head>
-    
-    <body>
-        <h1>Skriv in texten som ska omskrivas</h1>
-		<form method="post">
-            <button type="submit" id="submBtn" onclick="skickatIn()">Kopiera!</button>
-			<input type="text" name="query">
-            
-            
-		</form>	
+</head>  
+<body>
+    <div class="wrapper">
+        <div class = "sidebar">
+            <button type="submit" id="submBtn" onclick="history()">Historik</button>
+        </div>
+        <div>
+            <h1>Skriv in texten som ska omskrivas</h1>
+        </div>        
+        <div>
+
+        </div>
+
+        <div>
+            <form method="post" >
+                <input type="text" name="query">
+            </form>	
+        </div>
+
     <script>
-        function skickatIn() {
-            window.location.href = "/rewrite/gen/"
+        function history() {
+            window.location.href = "/rewrite/hist/"
         }
     </script>
-        
+    </div>
 
+        
     </body>
 

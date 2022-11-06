@@ -1,0 +1,27 @@
+body {
+    background-color: #404456;
+}
+
+.historydivs {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 5%;
+    row-gap: 1em;
+}
+
+.input {
+    text-align: right;
+    background-color: #404456;
+}
+
+.input:nth-child(odd){
+    background-color: rgba(211, 211, 149, 0.199);
+}
+
+.output {
+    background-color: #404456;
+}
+
+.input:nth-child(even) {
+    background-color: #313544;
+}

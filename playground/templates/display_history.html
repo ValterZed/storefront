@@ -1,0 +1,72 @@
+<!doctype html>
+
+<head>
+    <title>Omskriv text</title> 
+    <meta charset=utf-8> 
+    <link rel="stylesheet" href="\static\rewrite\history.css">
+</head> 
+<body>
+    <div class="historydivs">
+        <div class="input">{{ i0 }}</div>
+        <div class="output">{{ o0 }}</div>
+
+        <div class="input">{{ i1 }}</div>
+        <div class="output">{{ o1 }}</div>
+
+        <div class="input">{{ i2 }}</div>
+        <div class="output">{{ o2 }}</div>
+        
+        <div class="input">{{ i3 }}</div>
+        <div class="output">{{ o3 }}</div>
+        
+        <div class="input">{{ i4 }}</div>
+        <div class="output">{{ o4 }}</div>
+        
+        <div class="input">{{ i5 }}</div>
+        <div class="output">{{ o5 }}</div>
+        
+        <div class="input">{{ i6 }}</div>
+        <div class="output">{{ o6 }}</div>
+        
+        <div class="input">{{ i7 }}</div>
+        <div class="output">{{ o7 }}</div>
+        
+        <div class="input">{{ i8 }}</div>
+        <div class="output">{{ o8 }}</div>
+        
+        <div class="input">{{ i9 }}</div>
+        <div class="output">{{ o9 }}</div>
+        
+    </div>
+</body>
+
+
+
+
+<script>
+    function DivBox( col, row )
+{
+    var ret = "";
+    for( var r = 0; r < row ; r++ )
+    {
+        ret += '<div id="Column'+(r+1)+'" style="float:left">';
+        for( var c = 0; c < col; c++ )
+        {
+            ret += '<div id="sq'+(r*col+c+1)+'" style="width:40px; height:40px;">';
+            ret += (r*col+c+1); //just for showing
+            ret += '</div>';
+            
+        }
+        ret += '</div>';              
+    }
+    return ret;
+}
+
+    function DoDivBox(lst){
+        var obj = document.getElementById("MainDiv");
+        row = lst.length;
+        obj.innerHTML = DivBox( row, 2 );
+        obj.style.height = row * 40 + "px";
+        obj.style.width = col * 40 + 2 + "px";
+}
+</script>
