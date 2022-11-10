@@ -7,29 +7,21 @@
 </head>  
 <body>
     <div class="wrapper">
-        <div class = "sidebar">
-            <button type="submit" id="submBtn" onclick="history()">Historik</button>
-        </div>
-        <div>
+        <div class="side" onclick="history()"></div>
+        <div class="main">
             <h1>Skriv in texten som ska omskrivas</h1>
-        </div>        
-        <div>
-
-        </div>
-
-        <div>
             <form method="post" >
                 <input type="text" name="query">
             </form>	
         </div>
+        <div class="side" onclick="history()"></div>
 
-    <script>
+
+    </div>
+</body>
+<script>
         function history() {
             window.location.href = "/rewrite/hist/"
         }
-    </script>
-    </div>
-
-        
-    </body>
+</script>
 

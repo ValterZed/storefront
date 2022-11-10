@@ -14,20 +14,18 @@ rewrite = True
 ai_values = {"temperature": 0.7, "max_tokens": 256, "frequency_penalty": 2, "presence_penalty": 0}
 
 
-def generate(text):
-    
+def generate(text, settings):
 
-    
     prompt = (GoogleTranslator('auto','en').translate(text))
 
     response = openai.Completion.create(
         model="text-davinci-002",
-        prompt=f"write \'{prompt}' in a new way" if rewrite else prompt,
-        temperature=ai_values["temperature"],
-        max_tokens=ai_values["max_tokens"],
+        prompt=f"write '{prompt}' in a new way" if rewrite else prompt,
+        temperature=settings["temperature"],
+        max_tokens=settings["max_tokens"],
         top_p=1,
-        frequency_penalty=ai_values["frequency_penalty"],
-        presence_penalty=ai_values["presence_penalty"]
+        frequency_penalty=settings["frequency_penalty"],
+        presence_penalty=settings["presence_penalty"]
     )
 
     res = response["choices"][0]["text"]
@@ -56,8 +54,11 @@ def render_home(request):
     
     if ip not in users.keys():
         users[ip] = {"name": False}
-        with open(f"playground\data\{ip}_history.json", "w+") as json_file:
+        with open(f"playground\data\{ip}\history.json", "w+") as json_file:
             dump_dict = {}
+            json.dumps(dump_dict)
+        with open(f"playground\data\{ip}\settings.json", "w+") as json_file:
+            dump_dict = {"temperature": 0.7, "max_tokens": 256, "frequency_penalty": 2, "presence_penalty": 0}
             json.dumps(dump_dict)
     
     if users[str(ip)]["name"]:
@@ -85,9 +86,9 @@ def generating(request):
         query = q
         gen_text = generate(query)
 
-        with open(f"playground\data\{ip}_history.json", "r+") as json_file:
+        with open(f"playground\data\{ip}\history.json", "r+") as json_file:
             dict = json.loads(json_file.read())
-            with open(f"playground\data\{ip}_history.json", "w+") as json_file:
+            with open(f"playground\data\{ip}\history.json", "w+") as json_file:
                 dict[query] = gen_text
                 json_file.write(json.dumps(dict))
         
@@ -116,17 +117,20 @@ def logged_in(request):
 
 def display_history(request):
     ip = get_client_ip(request)
-    input_lst = [""for _ in range(10)]
-    value_lst = [""for _ in range(10)]
-    with open(f"playground\data\{ip}_history.json", "r+") as json_file:
+    input_lst = []
+    value_lst = []
+    with open(f"playground\data\{ip}\history.json", "r+") as json_file:
         dict = json.loads(json_file.read())
     
     for n, item in enumerate(reversed(dict.keys())):
-        if n >= 10:
-            break
-        input_lst[n] = item
-        value_lst[n] = dict[item]
+        input_lst.append(item.replace(",","£$"))
+        value_lst.append(dict[item].replace(",","£$"))
 
-    return render(request, "display_history.html", {"i0": input_lst[0], "i1":input_lst[1], "i2":input_lst[2], "i3":input_lst[3], "i4":input_lst[4], "i5":input_lst[5], "i6":input_lst[6], "i7":input_lst[7], "i8":input_lst[8], "i9":input_lst[9],
-    "o0": value_lst[0], "o1": value_lst[1], "o2": value_lst[2], "o3": value_lst[3], "o4": value_lst[4], "o5":value_lst[5], "o6":value_lst[6], "o7":value_lst[7], "o8":value_lst[8], "o9":value_lst[9]
-    })
+    return render(request, "display_history.html", {"input_list": input_lst, "output_list": value_lst})
+
+def settings(request):
+    ip = get_client_ip(request)
+    with open(f"playground\data\{ip}\settings.json", "r+") as json_file:
+        user_settings = json.loads(json_file.read())
+
+    return render(request, "settings.html", {"temperature": user_settings["temperature"], "max_tokens": user_settings["max_tokens"], "frequency_penalty": user_settings["frequency_penalty"], "presence_penalty": user_settings["presence_penalty"], "ip":ip})

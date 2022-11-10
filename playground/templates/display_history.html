@@ -5,48 +5,43 @@
     <meta charset=utf-8> 
     <link rel="stylesheet" href="\static\rewrite\history.css">
 </head> 
-<body>
+<body onload="gen_divs()">
     <button type="button" onclick="redirect_home()"> Omskriv Text </button>
-    <div class="historydivs">
-        <div class="input" id="i0" onclick="copy(document.getElementById('i0').textContent)">{{ i0 }}</div>
-        <div class="output" id="o0" onclick="copy(document.getElementById('o1').textContent)">{{ o0 }}</div>
+    <div class="historydivs" id="historydivs">
 
-        <div class="input" id="i1" onclick="copy(document.getElementById('i1').textContent)">{{ i1 }}</div>
-        <div class="output" id="o1" onclick="copy(document.getElementById('o1').textContent)">{{ o1 }}</div>
-
-        <div class="input" id="i2" onclick="copy(document.getElementById('i2').textContent)">{{ i2 }}</div>
-        <div class="output" id="o2" onclick="copy(document.getElementById('o2').textContent)">{{ o2 }}</div>
-        
-        <div class="input" id="i3" onclick="copy(document.getElementById('i3').textContent)">{{ i3 }}</div>
-        <div class="output" id="o3" onclick="copy(document.getElementById('o3').textContent)">{{ o3 }}</div>
-        
-        <div class="input" id="i4" onclick="copy(document.getElementById('i4').textContent)">{{ i4 }}</div>
-        <div class="output" id="o4" onclick="copy(document.getElementById('o4').textContent)">{{ o4 }}</div>
-        
-        <div class="input" id="i5" onclick="copy(document.getElementById('i5').textContent)">{{ i5 }}</div>
-        <div class="output" id="o5" onclick="copy(document.getElementById('o5').textContent)">{{ o5 }}</div>
-        
-        <div class="input" id="i6" onclick="copy(document.getElementById('i6').textContent)">{{ i6 }}</div>
-        <div class="output" id="o6" onclick="copy(document.getElementById('o6').textContent)">{{ o6 }}</div>
-        
-        <div class="input" id="i7" onclick="copy(document.getElementById('i7').textContent)">{{ i7 }}</div>
-        <div class="output" id="o7" onclick="copy(document.getElementById('o7').textContent)">{{ o7 }}</div>
-        
-        <div class="input" id="i8" onclick="copy(document.getElementById('i8').textContent)">{{ i8 }}</div>
-        <div class="output" id="o8" onclick="copy(document.getElementById('o8').textContent)">{{ o8 }}</div>
-        
-        <div class="input" id="i9" onclick="copy(document.getElementById('i9').textContent)">{{ i9 }}</div>
-        <div class="output" id="o9" onclick="copy(document.getElementById('o9').textContent)">{{ o9 }}</div>
-        
     </div>
 </body>
 
 
 <script>
-    function copy(txt) {
-        navigator.clipboard.writeText(txt);
+    function copy(id) {
+        // var div = getElementById(id)
+        navigator.clipboard.writeText(id)
     }
     function redirect_home() {
         window.location.href = "/rewrite/"
+    }
+    function addDivToParent(parent, onNewLine, className, idName, text){
+    var div = document.createElement('div');
+    div.innerHTML = text.replaceAll("'","");
+    div.className = className;
+    div.id = idName;
+
+
+    document.getElementById(parent).appendChild(div);
+    }
+    function gen_divs() {
+        var input_list_str = '{{ input_list }}'.replace("[","").replace("]","")
+        var output_list_str = '{{ output_list}}'.replace("[","").replace("]","")
+
+        var input_list = input_list_str.split(",");
+        var output_list = output_list_str.split(",");
+
+        for (n in input_list){
+            addDivToParent("historydivs", true, "input", ("i"+n), input_list[n].replaceAll("£$",","))
+            addDivToParent("historydivs", true, "output", ("o"+n), output_list[n].replaceAll("£$", ","))
+        }
+
+    
     }
 </script>

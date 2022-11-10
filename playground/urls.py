@@ -10,5 +10,6 @@ urlpatterns = [
     path("loggingIn/", views.logged_in),
     path("gen/", views.generating_fake),
     path("disp/", views.generating),
-    path("hist/", views.display_history)
+    path("hist/", views.display_history),
+    path("settings/", views.settings)
 ]
