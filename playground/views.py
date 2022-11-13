@@ -21,11 +21,11 @@ def generate(text, settings):
     response = openai.Completion.create(
         model="text-davinci-002",
         prompt=f"write '{prompt}' in a new way" if rewrite else prompt,
-        temperature=settings["temperature"],
-        max_tokens=settings["max_tokens"],
+        temperature=float(settings["temperature"]),
+        max_tokens=int(settings["max_tokens"]),
         top_p=1,
-        frequency_penalty=settings["frequency_penalty"],
-        presence_penalty=settings["presence_penalty"]
+        frequency_penalty=float(settings["frequency_penalty"]),
+        presence_penalty=float(settings["presence_penalty"])
     )
 
     res = response["choices"][0]["text"]
@@ -81,10 +81,11 @@ def render_home(request):
     return render(request,"home.html", {"LoggedInWithName": loggedInWithName})
 
 def generating(request):
-
         ip = get_client_ip(request)
+        with open(f"playground\data\{ip}\settings.json", "r+") as json_file:
+            user_settings = json.loads(json_file.read())
         query = q
-        gen_text = generate(query)
+        gen_text = generate(query, user_settings)
 
         with open(f"playground\data\{ip}\history.json", "r+") as json_file:
             dict = json.loads(json_file.read())
@@ -132,5 +133,16 @@ def settings(request):
     ip = get_client_ip(request)
     with open(f"playground\data\{ip}\settings.json", "r+") as json_file:
         user_settings = json.loads(json_file.read())
+
+    if request.GET.get('t') != None:
+        user_settings["temperature"] = request.GET.get('t')
+        user_settings["max_tokens"] = request.GET.get('mt')
+        user_settings["frequency_penalty"] = request.GET.get('fp')
+        user_settings["presence_penalty"] = request.GET.get('pp')
+
+        with open(f"playground\data\{ip}\settings.json", "w+") as json_file:
+            json_file.write(json.dumps(user_settings))
+        
+        return render(request, "redirect_home.html",)
 
     return render(request, "settings.html", {"temperature": user_settings["temperature"], "max_tokens": user_settings["max_tokens"], "frequency_penalty": user_settings["frequency_penalty"], "presence_penalty": user_settings["presence_penalty"], "ip":ip})

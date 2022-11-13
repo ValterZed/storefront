@@ -22,13 +22,13 @@
         window.location.href = "/rewrite/"
     }
     function addDivToParent(parent, onNewLine, className, idName, text){
-    var div = document.createElement('div');
-    div.innerHTML = text.replaceAll("'","");
-    div.className = className;
-    div.id = idName;
+        var div = document.createElement('div');
+        div.innerHTML = text.replaceAll("'","");
+        div.className = className;
+        div.id = idName;
 
 
-    document.getElementById(parent).appendChild(div);
+        document.getElementById(parent).appendChild(div);
     }
     function gen_divs() {
         var input_list_str = '{{ input_list }}'.replace("[","").replace("]","")
