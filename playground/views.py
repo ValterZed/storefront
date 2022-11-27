@@ -54,6 +54,12 @@ def render_home(request):
     
     if ip not in users.keys():
         users[ip] = {"name": False}
+
+        try:
+            with open(f"playground\data\{ip}\history.json", "w+") as json_file:
+                dump_dict = {}
+        except:
+            os.mkdir(f"playground\data\{ip}")
         with open(f"playground\data\{ip}\history.json", "w+") as json_file:
             dump_dict = {}
             json.dumps(dump_dict)
@@ -83,15 +89,25 @@ def render_home(request):
 def generating(request):
         ip = get_client_ip(request)
         with open(f"playground\data\{ip}\settings.json", "r+") as json_file:
-            user_settings = json.loads(json_file.read())
+            try: 
+                user_settings = json.loads(json_file.read())
+            except:
+                user_settings = ai_values
+                with open(f"playground\data\{ip}\settings.json", "w+") as json_a_file:
+                    json_a_file.write(json.dumps(user_settings))
         query = q
         gen_text = generate(query, user_settings)
 
-        with open(f"playground\data\{ip}\history.json", "r+") as json_file:
-            dict = json.loads(json_file.read())
+        try:
+            with open(f"playground\data\{ip}\history.json", "r+") as json_file:
+                dict = json.loads(json_file.read())
+        except:
             with open(f"playground\data\{ip}\history.json", "w+") as json_file:
-                dict[query] = gen_text
-                json_file.write(json.dumps(dict))
+                json_file.write(json.dumps({}))
+                dict = {}
+        with open(f"playground\data\{ip}\history.json", "w+") as json_file:
+            dict[query] = gen_text
+            json_file.write(json.dumps(dict))
         
 
         return render(request, "display_generated.html", {"generated_text": gen_text})
