@@ -3,7 +3,8 @@
 <head>
     <title>Omskriv text</title> 
     <meta charset=utf-8> 
-    <link rel="stylesheet" href="\static\rewrite\history.css">
+    <link rel="stylesheet" href="\static\rewrite\css\history.css">
+    <script type="text/javascript" src="{% static 'rewrite\js\history.js'%}"></script>
 </head> 
 <body onload="gen_divs()">
     <button type="button" onclick="redirect_home()"> Omskriv Text </button>
@@ -12,36 +13,16 @@
     </div>
 </body>
 
+{% load static %}
+<script>function gen_divs() {
+    var input_list_str = '{{ input_list }}'.replace("[","").replace("]","")
+    var output_list_str = '{{ output_list}}'.replace("[","").replace("]","")
 
-<script>
-    function copy(id) {
-        // var div = getElementById(id)
-        navigator.clipboard.writeText(id)
+    var input_list = input_list_str.split(",");
+    var output_list = output_list_str.split(",");
+
+    for (n in input_list){
+        addDivToParent("historydivs", true, "input", ("i"+n), input_list[n].replaceAll("£$",","))
+        addDivToParent("historydivs", true, "output", ("o"+n), output_list[n].replaceAll("£$", ","))
     }
-    function redirect_home() {
-        window.location.href = "/rewrite/"
-    }
-    function addDivToParent(parent, onNewLine, className, idName, text){
-        var div = document.createElement('div');
-        div.innerHTML = text.replaceAll("'","");
-        div.className = className;
-        div.id = idName;
-
-
-        document.getElementById(parent).appendChild(div);
-    }
-    function gen_divs() {
-        var input_list_str = '{{ input_list }}'.replace("[","").replace("]","")
-        var output_list_str = '{{ output_list}}'.replace("[","").replace("]","")
-
-        var input_list = input_list_str.split(",");
-        var output_list = output_list_str.split(",");
-
-        for (n in input_list){
-            addDivToParent("historydivs", true, "input", ("i"+n), input_list[n].replaceAll("£$",","))
-            addDivToParent("historydivs", true, "output", ("o"+n), output_list[n].replaceAll("£$", ","))
-        }
-
-    
-    }
-</script>
+}</script>

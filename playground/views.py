@@ -7,7 +7,7 @@ import openai
 from deep_translator import GoogleTranslator
 
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 rewrite = True
 
@@ -139,7 +139,7 @@ def display_history(request):
     with open(f"playground\data\{ip}\history.json", "r+") as json_file:
         dict = json.loads(json_file.read())
     
-    for n, item in enumerate(reversed(dict.keys())):
+    for item in reversed(dict.keys()):
         input_lst.append(item.replace(",","£$"))
         value_lst.append(dict[item].replace(",","£$"))
 

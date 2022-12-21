@@ -2,21 +2,21 @@
 
 <head>
     <title>Texten är klar!</title>
-    <link rel="stylesheet" href="\static\rewrite\home.css">
+    <link rel="stylesheet" href="\static\rewrite\css\generated.css">
     <meta charset=utf-8> 
 </head>
     <body>
-        <h1><a href="/rewrite/" >Omskriven Text</a></h1>
-		<h4>{{ generated_text }}</h4>
+        <div class="wrapper">
+            <div class="side" ondblclick="home()"></div>
+            <div class="main">
+                <h1><a href="/rewrite/" >Omskriven Text</a></h1>
+                <h4 id="rewritten_text">{{ generated_text }}</h4>
+            </div>
+            <div class="side"></div>
+        </div>  
         
         
 
-<script>
-	function copy() { 
-        window.location.href = "/copy/"
-	
 
-	}
-</script>
 
 </body>

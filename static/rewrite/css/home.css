@@ -1,13 +1,12 @@
 h1 {
     width:500px;
-    margin: 1vh auto;
+    margin: 1.5vh auto;
     background: #616886;
     text-align: center;
     border-radius: 6px;
     transition-duration: 0.5s;
-    height: 15%;
-} h1:hover {
-    border-radius: 12px;
+    height: 20%;
+    box-shadow: -10px 50px 50px 50px rgba(0,0,0,0.19);
 }
 
 body {
@@ -51,7 +50,6 @@ input[type=text] {
     right: 10%;
     text-align: start;
     color: #f6f4d2;
-    font-size: large;
 }
 
 input[type=text]:focus {
@@ -62,7 +60,6 @@ input[type=text]:focus {
     height: 80%;
     left: .5%;
     right: .5%;
-    animation: shake3step 0.3s;
 }
 
 
@@ -76,25 +73,16 @@ input[type=text]:focus {
     grid-template-columns: 100%;
     grid-template-rows: 40% 1fr;
     flex-grow: 1;
-    box-shadow: -10px 50px 50px 50px rgba(0,0,0,0.19);
     background-color: #2d283b;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+.main:hover {
+    box-shadow: -10px 50px 50px 50px rgba(0,0,0,0.19);
 }
 
 
 .side {
     height: 80vh;
-    width: 20%
-
-}
-
-@keyframes shake3step {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    50% { transform: translate(-.5px, -1px) rotate(-.5deg); }
-    100% { transform: translate(-1.5px, 0px) rotate(.5deg); }   
-}
-
-@keyframes shake3stepL {
-    0% { transform: translate(6px, 6px) rotate(0deg); }
-    50% { transform: translate(-6px, -6px) rotate(-6deg); }
-    100% { transform: translate(-6px, 0px) rotate(6deg); }  
+    width: 20%;
 }

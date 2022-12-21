@@ -3,7 +3,7 @@
 <head>
     <title>Inställningar</title> 
     <meta charset=utf-8> 
-    <link rel="stylesheet" href="\static\rewrite\settings.css">
+    <link rel="stylesheet" href="\static\rewrite\css\settings.css">
 </head>  
 <body>
     <div class="wrapper">
@@ -25,78 +25,15 @@
                 <h4>Presence Penalty</h4>
                 <input type="range" min="0" max="2" step="0.01" value= '{{ presence_penalty }}' class="slider" id="presence_penalty" name="pp">
                 <h5 id="ppDisp" class="otpD">p:</h5>
+
                 
-                <button type="submit" onclick="HomeAnyways()"> Spara </button>
+                <button type="submit" class="submitButton"> Spara </button>
                 </form>
         </div>
-        <div class="side" ondbclick="HomeAnyways()"></div>
+        <div class="side" onclick="home()"></div>
 
 
     </div>
 
-    <script>
-        var Tslider = document.getElementById("temperature");
-        var Toutput = document.getElementById("tDisp");
-        Toutput.innerHTML = Tslider.value;
-    
-        Tslider.oninput = function() {
-        Toutput.innerHTML = this.value;
-    }
-    
-    var MTslider = document.getElementById("max_tokens");
-        var MToutput = document.getElementById("mtDisp");
-        MToutput.innerHTML = MTslider.value;
-    
-        MTslider.oninput = function() {
-        MToutput.innerHTML = this.value;
-    }
-    
-    var FPslider = document.getElementById("frequency_penalty");
-        var FPoutput = document.getElementById("fpDisp");
-        FPoutput.innerHTML = FPslider.value;
-    
-        FPslider.oninput = function() {
-        FPoutput.innerHTML = this.value;
-    }
-    
-    var PPslider = document.getElementById("presence_penalty");
-        var PPoutput = document.getElementById("ppDisp");
-        PPoutput.innerHTML = PPslider.value;
-    
-        PPslider.oninput = function() {
-        PPoutput.innerHTML = this.value;
-    }
-    </script>
-</body>
-<script>
-    function addDivToParent(parent, className, idName, text){
-        var div = document.createElement('div');
-        div.innerHTML = text.replaceAll("'","");
-        div.className = className;
-        div.id = idName;
-        div.ondbclick = HomeAnyways()
-
-
-        document.getElementById(parent).appendChild(div);
-    }
-    ipt>
-    function HomeAnyways() {
-        window.location.href = "/rewrite/"
-    }
-
-    function home() {
-        (async () => {
-        const response = await fetch('/rewrite/settings?' + new URLSearchParams({
-        t : document.getElementById('temperature').value,
-        mt : document.getElementById('max_tokens').value,
-        fp : document.getElementById('frequency_penalty').value,
-        pp : document.getElementById('presence_penalty').value
-    }))
-
-    const data = await response.json()
-
-    console.log(data)
-    
-})()
-    }
-</script>
+{% load static %}
+<script type="text/javascript" src="{% static 'rewrite\js\settings.js'%}"></script>
